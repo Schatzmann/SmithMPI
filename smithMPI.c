@@ -6,22 +6,14 @@
 #include <stdlib.h>
 #include "functions.h"
 
-int main(int argc, char const *argv[])
+int main(int argc, char *argv[])
 {
-	int **matriz;
-	int col, lin;
+	TSequencias sequencias;
+	int **matrizValores, **matrizPosicao;
 
-	col = 10;
-	lin = 10;
-
-	matriz = alocarMatriz(lin, col);
-
-	for(int i = 0; i < lin; i++){
-		for(int j = 0; j < col; j++){
-			printf("%d ", matriz[i][j]);
-		}
-		printf("\n");
-	}
+	lerSequencias(argv[1], &sequencias);
 	
+	matrizValores = alocarMatriz((sequencias.tamSeqB + 1), (sequencias.tamSeqA + 1));
+
 	return 0;
 }
