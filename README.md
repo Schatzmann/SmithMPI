@@ -1,2 +1,5 @@
 ## Para compilar:
-	gcc SmithMPI.c -a SmithMPI
+	gcc smithMPI.c functions.h functions.c -o smithMPI
+
+## Para executar:
+	./smithMPI
