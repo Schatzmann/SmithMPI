@@ -13,5 +13,5 @@ typedef struct TSequencias{
 int** alocarMatriz(int, int);
 void lerSequencias(char*, TSequencias*);
 void calcSmithWaterman();
-
+void Backtrace();
 #endif

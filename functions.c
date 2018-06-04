@@ -55,3 +55,9 @@ void lerSequencias(char* nomeArquivo, TSequencias *sequencias){
 void calcSmithWaterman(){
 	printf("CALCULANDO SMITH-WATERMAN\n");
 }
+
+
+/* Realizando Backtrace */
+void Backtrace(){
+	printf("REALIZANDO O BACKTRACE\n");
+}
