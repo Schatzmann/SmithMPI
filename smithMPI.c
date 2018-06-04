@@ -9,15 +9,19 @@
 int main(int argc, char *argv[])
 {
 	TSequencias sequencias;
-	int **matrizValores, **matrizPosicao;
+	TPosicao posicao;
+	int **matrizValores, **matrizPosicao, linMatriz, colMatriz;
+
+	linMatriz = sequencias.tamSeqB + 1;
+	colMatriz = sequencias.tamSeqA + 1;
 
 	lerSequencias(argv[1], &sequencias);
 	
-	matrizValores = alocarMatriz((sequencias.tamSeqB + 1), (sequencias.tamSeqA + 1));
-	matrizPosicao = alocarMatriz((sequencias.tamSeqB + 1), (sequencias.tamSeqA + 1));
+	matrizValores = alocarMatriz(linMatriz, colMatriz);
+	matrizPosicao = alocarMatriz(linMatriz, colMatriz);
 
-	calcSmithWaterman();
-	Backtrace();
+	calcSmithWaterman(matrizValores, matrizPosicao, linMatriz, colMatriz, sequencias);
+	Backtrace(matrizPosicao, &sequencias, &posicao);
 
 	return 0;
 }
