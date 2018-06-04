@@ -108,22 +108,21 @@ void Backtrace(int** matrizPosicao, TSequencias *sequencias, TPosicao *posicao){
 
 	lacuna = '-';
 
-	/*TESTE*/
+	/*TESTE
 	posicao->linha = 5;
 	posicao->coluna = 5;
 
 	posicao->linha = posicao->linha - 1;
 	printf("%d %d\n",posicao->linha, posicao->coluna);
-	
-	/*TESTE*/
+	*/
 	
 	alinhamentoOtimoA = (char*) malloc(sizeof(char) * sequencias->tamSeqA);
 	alinhamentoOtimoB = (char*) malloc(sizeof(char) * sequencias->tamSeqB);
 
-	/*while(matrizPosicao[posicao->linha][posicao->coluna] > 0){
+	while(matrizPosicao[posicao->linha][posicao->coluna] > 0){
 		if (matrizPosicao[posicao->linha][posicao->coluna] == DIAGONAL){
-			strcat(alinhamentoOtimoA, (&sequencias->seqA - 1));
-			strcat(alinhamentoOtimoB, (&sequencias->seqB - 1));
+			strcat(alinhamentoOtimoA, (sequencias->seqA - 1));
+			strcat(alinhamentoOtimoB, (sequencias->seqB - 1));
 
 			posicao->linha = posicao->linha - 1;  
 			posicao->coluna = posicao->coluna - 1;
@@ -131,19 +130,19 @@ void Backtrace(int** matrizPosicao, TSequencias *sequencias, TPosicao *posicao){
 
 		if (matrizPosicao[posicao->linha][posicao->coluna] == TOPO){
 			strcat(alinhamentoOtimoA, &lacuna);
-			strcat(alinhamentoOtimoB, (&sequencias->seqB - 1));
+			strcat(alinhamentoOtimoB, (sequencias->seqB - 1));
 
 			posicao->linha = posicao->linha - 1;
 		}
 
 		if (matrizPosicao[posicao->linha][posicao->coluna] == ESQUERDA){
-			strcat(alinhamentoOtimoA, (&sequencias->seqA - 1));
+			strcat(alinhamentoOtimoA, (sequencias->seqA - 1));
 			strcat(alinhamentoOtimoB, &lacuna);
 
 			posicao->coluna = posicao->coluna - 1;      //posMaior[lin][col] = posMaior[lin][col -1];
-
 		}
-	}*/
+
+	}
 
 
 	alinhamentoOtimoA = "GATCGA";	
