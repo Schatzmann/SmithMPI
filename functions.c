@@ -108,14 +108,13 @@ void Backtrace(int** matrizPosicao, TSequencias *sequencias, TPosicao *posicao){
 
 	lacuna = '-';
 
-	/*TESTE*/
+	/*TESTE
 	posicao->linha = 5;
 	posicao->coluna = 5;
 
 	posicao->linha = posicao->linha - 1;
 	printf("%d %d\n",posicao->linha, posicao->coluna);
-	
-	/*TESTE*/
+	*/
 	
 	alinhamentoOtimoA = (char*) malloc(sizeof(char) * sequencias->tamSeqA);
 	alinhamentoOtimoB = (char*) malloc(sizeof(char) * sequencias->tamSeqB);
@@ -142,8 +141,6 @@ void Backtrace(int** matrizPosicao, TSequencias *sequencias, TPosicao *posicao){
 
 			posicao->coluna = posicao->coluna - 1;      //posMaior[lin][col] = posMaior[lin][col -1];
 		}
-
-		printf("NO WHILE\n");
 	}
 
 
