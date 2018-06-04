@@ -7,6 +7,22 @@
 #include <string.h>
 #include "functions.h"
 
+/* Retorna a direção máxima entre os 3 elementos calculados, caso todos sejam negativos, retorna 0 */
+int maxDirecao(int diagonal, int topo, int esquerda){
+	int max = 0;
+
+	if(diagonal > max)
+		max = DIAGONAL;
+
+	if(topo > max)
+		max = TOPO;
+
+	if(esquerda > max)
+		max = ESQUERDA;
+
+	return max;
+}
+
 /* Função que aloca uma matriz alinhada em memória, retornando a mesma zerada para a chamada */
 int** alocarMatriz(int linha, int coluna){
 	int tamMatriz = linha * coluna;
@@ -52,6 +68,26 @@ void lerSequencias(char* nomeArquivo, TSequencias *sequencias){
 }
 
 /* Calculo do algoritmo de Smith-Waterman */
-void calcSmithWaterman(){
+void calcSmithWaterman(int** matrizValores, int** matrizPosicao, int linha, int coluna, TSequencias sequencias){
 	printf("CALCULANDO SMITH-WATERMAN\n");
+
+	int qtdeDiagonais, score, diag, topo, esq, valorMaiorElem;
+
+	qtdeDiagonais = (linha + coluna) - 1;
+
+	/* Calculo do primeiro elemento da matriz */
+	score = sequencias.seqA[0] == sequencias.seqB[0] ? MATCH : MISMATCH;
+	diag = matrizValores[0][0] + score;
+	topo = matrizValores[0][1] + GAP;
+	esq = matrizValores[1][0] + GAP;
+	matrizPosicao[1][1] = maxDirecao(diag, topo, esq, 0);
+
+
+
+	// for (int i = 0; i < linha; ++i){
+	// 	for (int j = 0; j < coluna; ++j){
+	// 		printf("%d ", matrizValores[i][j]);
+	// 	}
+	// 	printf("\n");
+	// }
 }

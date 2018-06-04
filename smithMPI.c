@@ -9,14 +9,18 @@
 int main(int argc, char *argv[])
 {
 	TSequencias sequencias;
-	int **matrizValores, **matrizPosicao;
+	TPosicao maiorElemento;
+	int **matrizValores, **matrizPosicao, linMatriz, colMatriz;
 
 	lerSequencias(argv[1], &sequencias);
-	
-	matrizValores = alocarMatriz((sequencias.tamSeqB + 1), (sequencias.tamSeqA + 1));
-	matrizPosicao = alocarMatriz((sequencias.tamSeqB + 1), (sequencias.tamSeqA + 1));
 
-	calcSmithWaterman();
+	linMatriz = sequencias.tamSeqB + 1;
+	colMatriz = sequencias.tamSeqA + 1;
+	
+	matrizValores = alocarMatriz(linMatriz, colMatriz);
+	matrizPosicao = alocarMatriz(linMatriz, colMatriz);
+
+	calcSmithWaterman(matrizValores, matrizPosicao, linMatriz, colMatriz, sequencias, &maiorElemento);
 
 	return 0;
 }

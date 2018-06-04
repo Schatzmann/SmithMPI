@@ -10,8 +10,12 @@ typedef struct TSequencias{
 	char *seqA, *seqB;
 } TSequencias;
 
+typedef struct TPosicao{
+	int linha, coluna;
+} TPosicao;
+
 int** alocarMatriz(int, int);
 void lerSequencias(char*, TSequencias*);
-void calcSmithWaterman();
+void calcSmithWaterman(int**, int**, int, int, TSequencias, TPosicao);
 
 #endif
