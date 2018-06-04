@@ -14,6 +14,9 @@ int main(int argc, char *argv[])
 	lerSequencias(argv[1], &sequencias);
 	
 	matrizValores = alocarMatriz((sequencias.tamSeqB + 1), (sequencias.tamSeqA + 1));
+	matrizPosicao = alocarMatriz((sequencias.tamSeqB + 1), (sequencias.tamSeqA + 1));
+
+	calcSmithWaterman();
 
 	return 0;
 }

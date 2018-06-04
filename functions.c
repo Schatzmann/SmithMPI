@@ -51,3 +51,7 @@ void lerSequencias(char* nomeArquivo, TSequencias *sequencias){
   fclose(arq);
 }
 
+/* Calculo do algoritmo de Smith-Waterman */
+void calcSmithWaterman(){
+	printf("CALCULANDO SMITH-WATERMAN\n");
+}
