@@ -12,16 +12,16 @@ int main(int argc, char *argv[])
 	TPosicao posicao;
 	int **matrizValores, **matrizPosicao, linMatriz, colMatriz;
 
+	lerSequencias(argv[1], &sequencias);
+	
 	linMatriz = sequencias.tamSeqB + 1;
 	colMatriz = sequencias.tamSeqA + 1;
-
-	lerSequencias(argv[1], &sequencias);
 	
 	matrizValores = alocarMatriz(linMatriz, colMatriz);
 	matrizPosicao = alocarMatriz(linMatriz, colMatriz);
 
 	calcSmithWaterman(matrizValores, matrizPosicao, linMatriz, colMatriz, sequencias);
-	Backtrace(matrizPosicao, &sequencias, &posicao);
+	// Backtrace(matrizPosicao, &sequencias, &posicao);
 
 	return 0;
 }

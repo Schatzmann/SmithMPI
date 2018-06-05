@@ -16,18 +16,20 @@
 #define DIAGONAL 2
 #define ESQUERDA 1
 
+#define TAM_BLOCO 3 
+
 /* Retorna a direção máxima entre os 3 elementos calculados, caso todos sejam negativos, retorna 0 */
 int maxDirecao(int diagonal, int topo, int esquerda){
 	int max = 0;
 
 	if(diagonal > max)
-		max = DIAGONAL;
+		max = diagonal;
 
 	if(topo > max)
-		max = TOPO;
+		max = topo;
 
 	if(esquerda > max)
-		max = ESQUERDA;
+		max = esquerda;
 
 	return max;
 }
@@ -78,27 +80,40 @@ void lerSequencias(char* nomeArquivo, TSequencias *sequencias){
 
 /* Calculo do algoritmo de Smith-Waterman */
 void calcSmithWaterman(int** matrizValores, int** matrizPosicao, int linha, int coluna, TSequencias sequencias){
-	printf("CALCULANDO SMITH-WATERMAN\n");
 
-	int qtdeDiagonais, score, diag, topo, esq, valorMaiorElem;
+	int score, diag, topo, esq;
 
-	qtdeDiagonais = (linha + coluna) - 1;
+	
+	for(int i = 1; i < TAM_BLOCO; i++){
+		for(int j = 1; j < TAM_BLOCO; j++){
+			score = sequencias.seqA[j - 1] == sequencias.seqB[i - 1] ? MATCH : MISMATCH;
+			diag = matrizValores[j - 1][i - 1] + score;
+			topo = matrizValores[j - 1][i] + GAP;
+			esq = matrizValores[j][i - 1] + GAP;
+			matrizValores[i][j] = maxDirecao(diag, topo, esq);
+		}
+	}
 
-	/* Calculo do primeiro elemento da matriz */
-	score = sequencias.seqA[0] == sequencias.seqB[0] ? MATCH : MISMATCH;
-	diag = matrizValores[0][0] + score;
-	topo = matrizValores[0][1] + GAP;
-	esq = matrizValores[1][0] + GAP;
-	matrizPosicao[1][1] = maxDirecao(diag, topo, esq);
+	for(int k = TAM_BLOCO; k < coluna; k += TAM_BLOCO){
+		for(int i = 1; i < TAM_BLOCO; i++){
+			for(int j = k; j < (k + TAM_BLOCO); j++){
+				score = sequencias.seqA[j - 1] == sequencias.seqB[i - 1] ? MATCH : MISMATCH;
+				diag = matrizValores[j - 1][i - 1] + score;
+				topo = matrizValores[j - 1][i] + GAP;
+				esq = matrizValores[j][i - 1] + GAP;
+				matrizValores[i][j] = maxDirecao(diag, topo, esq);
+			}
+			
+		}
+	}
 
+	for(int i = 0; i < linha; i++){
+		for(int j = 0; j < coluna; j++){
+			printf("%d ", matrizValores[i][j]);
+		}
+		printf("\n");
+	}
 
-
-	// for (int i = 0; i < linha; ++i){
-	// 	for (int j = 0; j < coluna; ++j){
-	// 		printf("%d ", matrizValores[i][j]);
-	// 	}
-	// 	printf("\n");
-	// }
 }
 
 
