@@ -83,7 +83,7 @@ void calcSmithWaterman(int** matrizValores, int** matrizPosicao, int linha, int 
 
 	int score, diag, topo, esq;
 
-	
+	/* Primeiro bloco */
 	for(int i = 1; i < TAM_BLOCO; i++){
 		for(int j = 1; j < TAM_BLOCO; j++){
 			score = sequencias.seqA[j - 1] == sequencias.seqB[i - 1] ? MATCH : MISMATCH;
@@ -94,6 +94,7 @@ void calcSmithWaterman(int** matrizValores, int** matrizPosicao, int linha, int 
 		}
 	}
 
+	/* Primeira linha */
 	for(int k = TAM_BLOCO; k < coluna; k += TAM_BLOCO){
 		for(int i = 1; i < TAM_BLOCO; i++){
 			for(int j = k; j < (k + TAM_BLOCO); j++){
@@ -105,6 +106,34 @@ void calcSmithWaterman(int** matrizValores, int** matrizPosicao, int linha, int 
 			}
 			
 		}
+	}
+
+	/* Primeira coluna */
+	for(int k = TAM_BLOCO; k < linha; k += TAM_BLOCO){
+		for(int i = k; i < (k + TAM_BLOCO); i++){
+			for(int j = 1; j < TAM_BLOCO; j++){
+				score = sequencias.seqA[j - 1] == sequencias.seqB[i - 1] ? MATCH : MISMATCH;
+				diag = matrizValores[j - 1][i - 1] + score;
+				topo = matrizValores[j - 1][i] + GAP;
+				esq = matrizValores[j][i - 1] + GAP;
+				matrizValores[i][j] = maxDirecao(diag, topo, esq);
+			}
+			
+		}
+	}
+
+	for(int l = TAM_BLOCO; l < coluna; l += TAM_BLOCO){
+		for(int k = TAM_BLOCO; k < linha; k += TAM_BLOCO){
+			for(int i = l; i < (l + TAM_BLOCO); i++){
+				for(int j = k; j < (k + TAM_BLOCO); j++){
+					score = sequencias.seqA[j - 1] == sequencias.seqB[i - 1] ? MATCH : MISMATCH;
+					diag = matrizValores[j - 1][i - 1] + score;
+					topo = matrizValores[j - 1][i] + GAP;
+					esq = matrizValores[j][i - 1] + GAP;
+					matrizValores[i][j] = maxDirecao(diag, topo, esq);
+				}
+			}
+		}	
 	}
 
 	for(int i = 0; i < linha; i++){
@@ -123,14 +152,6 @@ void Backtrace(int** matrizPosicao, TSequencias *sequencias, TPosicao *posicao){
 
 	lacuna = '-';
 
-	/*TESTE
-	posicao->linha = 5;
-	posicao->coluna = 5;
-
-	posicao->linha = posicao->linha - 1;
-	printf("%d %d\n",posicao->linha, posicao->coluna);
-	*/
-	
 	alinhamentoOtimoA = (char*) malloc(sizeof(char) * sequencias->tamSeqA);
 	alinhamentoOtimoB = (char*) malloc(sizeof(char) * sequencias->tamSeqB);
 
@@ -159,8 +180,9 @@ void Backtrace(int** matrizPosicao, TSequencias *sequencias, TPosicao *posicao){
 	}
 
 
-	alinhamentoOtimoA = "GATCGA";	
+	/*alinhamentoOtimoA = "GATCGA";	
 	alinhamentoOtimoB = "AGCTAG";
+	*/
 
 	for(int i = (sequencias->tamSeqA); i >= 0; i--){
 		printf("%c", alinhamentoOtimoA[i]);
